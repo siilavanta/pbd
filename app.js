@@ -899,17 +899,5 @@ function test (){
   
 // })
 
-$("#meaning").click(function(){
-    var s = window.getSelection();
-   s.modify('extend','backward','word');        
-   var b = s.toString();
+document.getElementById('ready').style.display = 'none'
 
-   s.modify('extend','forward','word');
-   var a = s.toString();
-   s.modify('move','forward','character');
-   var word = b+a;
-   console.log(word)
-alert(word)
-});
-
-console.log('ready')
