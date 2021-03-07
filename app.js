@@ -911,3 +911,5 @@ $("#meaning").click(function(){
    console.log(word)
 alert(word)
 });
+
+console.log('ready')
