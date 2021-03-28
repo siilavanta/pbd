@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+var day;
+switch (new Date().getDay()) {
+  case 0:
+    day = "Sunday";
+    break;
+  case 1:
+    day = "Monday";
+    break;
+  case 2:
+    day = "Tuesday";
+    break;
+  case 3:
+    day = "Wednesday";
+    break;
+  case 4:
+    day = "Thursday";
+    break;
+  case 5:
+    day = "Friday";
+    break;
+  case  6:
+    day = "Saturday";
+    
+    
+    
+}
+
+document.getElementById("demo").innerHTML = "Today is " + day;
+
+
+var aStr = ['hello','something'];
+ for (var i = 0; i < aStr.length; i++){
+   var supp = aStr[i];
+   switch (supp) {
+      case 'hello':
+      //console.log('1')
+      break;
+      //case 'something': 
+      //console.log('2')
+      //break;
+      case 'something too':
+        // Do something
+       // console.log('3')
+      break;
+     
+     
+    }
+  }
+  var banglaMonths = [ 'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন', 'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র' ];
+  var weekDays = [ 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার' ];
+  var banglaSeasons = ['গ্রীষ্ম', 'বর্ষা', 'শরৎ', 'হেমন্ত', 'শীত', 'বসন্ত'];
+  var totalMonthDays = [31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30, 30];
+  
+  Date.prototype.addHours = function(h) {
+  this.setHours(this.getHours() + h);
+  return this;
+  }
+  
+  function isLeapYear(year) {
+  return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+  }
+  
+  // a and b are javascript Date objects
+  function dateDiffInDays(a, b) {
+  var MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  
+  return Math.floor((utc2 - utc1) / MILLISECONDS_PER_DAY);
+  }
+  
+  function getBanglaDateAndMonth(givenDate) {
+  givenDate = givenDate.addHours(0);
+  
+  //Year, Date, Month for Gregorian/English Calendar
+  var gregDate = givenDate.getDate(),
+  gregMonth = givenDate.getMonth(),
+  gregYear = givenDate.getFullYear(),
+  gregDay = givenDate.getDay();
+  
+  if (isLeapYear(gregYear)) {
+  totalMonthDays[10] = 31; //If the given Gregorian Year is a LeapYear then, the Falgun month enclosed in the gregorian year will be 31 days
+  }
+  
+  // If the given date is smaller than 14th April of current Gregorian Year
+  if (gregMonth < 3 || (gregMonth === 3 && gregDate < 14)) {
+  // 3 is the index of 'April'
+  gregYear = gregYear - 1;
+  }
+  
+  var epoch = new Date(gregYear + '-04-13');
+  var banglaYear = gregYear - 593;
+  
+  var dayRemaining = dateDiffInDays(epoch, givenDate);
+  
+  var banglaMonthIndex = 0;
+  
+  for (var i = 0; i < banglaMonths.length; i++) {
+  if (dayRemaining <= totalMonthDays[i]) {
+  banglaMonthIndex = i;
+  break;
+  }
+  
+  dayRemaining -= totalMonthDays[i];
+  }
+  
+  var banglaDate = dayRemaining;
+  
+  var banglaSeason = banglaSeasons[Math.floor(banglaMonthIndex / 2)]; // ('পৌষ' + 'মাঘ') = 'শীত'. Every consecutive two index in 'banglaMonths' indicates a single index in 'banglaSeasons'.
+  
+  return {
+  year: banglaYear,
+  date: banglaDate,
+  month: banglaMonths[banglaMonthIndex],
+  day: weekDays[gregDay],
+  season: banglaSeason
+  };
+  }
+  
+  String.prototype.convertDigitToBangla = function() {
+  var convertToBanglaDigit = {
+  '1': '১',
+  '2': '২',
+  '3': '৩',
+  '4': '৪',
+  '5': '৫',
+  '6': '৬',
+  '7': '৭',
+  '8': '৮',
+  '9': '৯',
+  '0': '০'
+  };
+  
+  return this.replace(/\d/g, function(match) {
+  return convertToBanglaDigit[match];
+  });
+  };
+  
+  //console.log(epoch)
+  Date.prototype.addHours= function(h){
+  this.setHours(this.getHours()+h);
+  return this;
+  }
+  //Test:
+  
+  //alert(new Date().addHours(-4));
+  
+  var start = new Date("2020-05-01"); //yyyy-mm-dd
+  var end = new Date("2020-05-31"); //yyyy-mm-dd
+  //1part
+  
+  
+  while(start <= end){
+  
+  var mm = ((start.getMonth()+1)>=10)?(start.getMonth()+1):'0'+(start.getMonth()+1);
+  var dd = ((start.getDate())>=10)? (start.getDate()) : '0' + (start.getDate());
+  var yyyy = start.getFullYear();
+  var date = dd+"/"+mm+"/"+yyyy; //yyyy-mm-dd
+  
+  //alert(date); 
+  console.log (date)
+  
+  start = new Date(start.setDate(start.getDate() + 1)); //date increase by 1
+  }
+  //2nd part
+  
+  Date.prototype.GetFirstDayOfWeek = function() {
+  return (new Date(this.setDate(this.getDate() - this.getDay())));
+  }
+  
+  Date.prototype.GetLastDayOfWeek = function() {
+  return (new Date(this.setDate(this.getDate() - this.getDay() +6)));
+  }
+  
+  var today = new Date();
+  
+  alert(today.GetFirstDayOfWeek());
+  
+  alert(today.GetLastDayOfWeek());
+  //3rd part
+  
+  
+  var curr = new Date; // get current date
+  var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+  var last = first + 6; // last day is the first day + 6
+  
+  var firstday = new Date(curr.setDate(first)).toUTCString();
+  var lastday = new Date(curr.setDate(last)).toUTCString();
+  document.write(firstday+lastday)
+  
+  //4th
+  
+  
+  var d = new Date();
+  d.setDate(6);
+  
+  var cd = new Date();
+  if (d == Date(cd)){
+  
+  alert ("true")
+  }else{
+  	alert ("nothing")
+  }
+  document.write (d)
+  
+</script>
+
+</body>
+</html>
