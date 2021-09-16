@@ -17,7 +17,7 @@
     }
 
     .colorItem {
-        width: 100px;
+        width: 50px;
         height: 160px;
     }
 </style>
@@ -50,7 +50,7 @@
 
             }
 
-            colorlist.innerHTML = template.join()
+            colorlist.innerHTML = template.join('')
         }
 
         colorSet();
@@ -58,7 +58,8 @@
         function searchColor() {
             var input = document.getElementById('input');
             var typeValue = input.value;
-
+            
+            typeValue = typeValue.toLowerCase();
             var isFound = false;
 
             for (var i = 0; i < colorArray.length; i++){
