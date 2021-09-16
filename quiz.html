@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .colorlist {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        top: 100px;
+    }
+
+    .colorItem {
+        width: 100px;
+        height: 160px;
+    }
+</style>
+
+<body>
+
+    <input oninput="searchColor()" id="input" type="text" placeholder="type your color">
+
+    <div>
+        <div class="colorlist">
+
+
+
+        </div>
+    </div>
+
+    <script>
+        var colorItem = document.querySelectorAll('.colorItem');
+        var colorlist = document.querySelector('.colorlist')
+
+        var colorArray = ['red', 'green', 'purple', 'blue', 'yellow', 'skyblue', 'gold']
+
+
+        function colorSet() {
+
+            var template = []
+            for (var i = 0; i < colorArray.length; i++) {
+                // colorItem[i].setAttribute('style', `background-color: ${colorArray[i]};`)
+                template.push(`<span class="colorItem" style="background-color: ${colorArray[i]};"></span>`)
+
+            }
+
+            colorlist.innerHTML = template.join()
+        }
+
+        colorSet();
+
+        function searchColor() {
+            var input = document.getElementById('input');
+            var typeValue = input.value;
+
+            var isFound = false;
+
+            for (var i = 0; i < colorArray.length; i++){
+
+
+                if (typeValue === colorArray[i]) {
+                    colorlist.innerHTML = `<span class="colorItem" style="background-color: ${colorArray[i]};"></span>`
+                    isFound = true;
+
+                } else {
+                    if(!isFound){
+                        colorSet()
+                    }
+                }
+            }
+        }
+        
+
+    </script>
+</body>
+
+</html>
