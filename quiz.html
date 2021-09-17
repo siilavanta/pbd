@@ -18,7 +18,8 @@
 
     .colorItem {
         width: 50px;
-        height: 160px;
+        height: 180px;
+        border: 1px solid black;
     }
 </style>
 
@@ -29,16 +30,16 @@
     <div>
         <div class="colorlist">
 
-
-
         </div>
+        
+        <p id="resultname"></p>
     </div>
 
     <script>
         var colorItem = document.querySelectorAll('.colorItem');
         var colorlist = document.querySelector('.colorlist')
-
-        var colorArray = ['red', 'green', 'purple', 'blue', 'yellow', 'skyblue', 'gold']
+        var resultName = document.getElementById('resultname')
+        var colorArray = ['red', 'green', 'blue', 'purple', 'blue', 'yellow', 'brown', 'red', 'skyblue', 'gold']
 
 
         function colorSet() {
@@ -61,12 +62,21 @@
             
             typeValue = typeValue.toLowerCase();
             var isFound = false;
-
+        
+            resultName.innerHTML = typeValue;
+            var foundlist = []
+            
             for (var i = 0; i < colorArray.length; i++){
 
-
                 if (typeValue === colorArray[i]) {
-                    colorlist.innerHTML = `<span class="colorItem" style="background-color: ${colorArray[i]};"></span>`
+                    foundlist.push(`<span class="colorItem" style="background-color: ${colorArray[i]};"></span>`)
+                    colorlist.innerHTML = foundlist.join('')
+                    //var span = document.createElement('span')
+                    //span.setAttribute("class", "colorItem")
+                    //span.setAttribute("style", `background-color: ${colorArray[i]};`)
+                    //span.innerHTML = ''
+                    //colorlist.appendChild(span)
+                
                     isFound = true;
 
                 } else {
