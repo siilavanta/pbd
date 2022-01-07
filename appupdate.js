@@ -2,5 +2,5 @@
 var txt = 'text'
 console.log(txt)
 //alert('online')
-localStorage.setItem('helpactive', "true")
+localStorage.setItem('helpactive', "false")
 
